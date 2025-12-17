@@ -1,3 +1,9 @@
 data
 data_augmented
 venv
+models/features_cached.npz
+
+
+# Python garbage
+__pycache__/
+*.py[cod]

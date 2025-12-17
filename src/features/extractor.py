@@ -6,9 +6,9 @@
 #  Version: 1.0
 # ----------------------------------------------------------------------------------------------------------------------------- //
 
-from hsv import extract_color_histogram
-from hog import extract_hog_features
-from lbp import extract_lbp_features
+from .hsv import extract_color_histogram
+from .hog import extract_hog_features
+from .lbp import extract_lbp_features
 import numpy as np
 import cv2
 
@@ -19,7 +19,6 @@ def extract_features(image):
     final_features_vector = np.hstack([hog_features, hsv_features, lbp_features])
     
     return final_features_vector 
-    
     
 
 if __name__ == '__main__':
