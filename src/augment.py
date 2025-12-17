@@ -1,7 +1,7 @@
 #                                                       بسم الله الرحمن الرحيم                                                //
 #  program: augment.py 
 #  Description: 
-#  Author:  Abdallah Gasem
+#  Author: Abdallah Gasem
 #  Date: 16-12-2025
 #  Version: 1.0
 # ----------------------------------------------------------------------------------------------------------------------------- //
@@ -13,12 +13,11 @@ import random
 import shutil
 from pathlib import Path
 
-# --- CONFIGURATION ---
 
+# --- CONFIGURATION ---
 INPUT_DIR = Path('../data')
 OUTPUT_DIR = Path('../data_augmented')
 TARGET_COUNT = 500  # stated in the project that we need to make up upto 500 each! 
-
 
 # Define the classes (excluding 'Unknown' if you want, but usually we augment it too)
 CLASSES = ['glass', 'paper', 
@@ -65,11 +64,20 @@ def augment_flip(image):
 
 # List of available augmentations
 aug_options = [augment_noise, augment_brightness, augment_flip, augment_rotate]
-# # --- MAIN PIPELINE ---
 
+# --- MAIN PIPELINE ---
 def augment():
     
-    # prepare Output dir #
+    # -----------------------------------------------------------------
+    #---------------------------- WORKFLOW ---------------------------#
+    # 1. make the output dir and clear it if exists (start clean) 
+    # 2. loop through the classes dirs and extract images name in an array
+    # 3. 
+    # 4. 
+    # -----------------------------------------------------------------
+    
+    
+    # prepare Output dir 
     if OUTPUT_DIR.exists():
         shutil.rmtree(OUTPUT_DIR)   # cleaning the existing dir
     OUTPUT_DIR.mkdir(parents=True)
@@ -131,5 +139,9 @@ def augment():
     print(f"New Dataset Size: {total_new + total_orginal_count}")
     
     
+    
+    
 if __name__ == "__main__":
     augment()
+    
+    
