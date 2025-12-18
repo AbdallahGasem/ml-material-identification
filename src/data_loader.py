@@ -105,9 +105,10 @@ def get_data_with_cache(data_path):
     X, y = load_dataset(data_path)
     
     print(f'Saving Loaded data at {CACHED_FILE}')
-    np.savez_compressed(CACHED_FILE, x=X, y=y)
+    np.savez_compressed(CACHED_FILE, X=X, y=y)
         
     return X, y
     
-
-get_data_with_cache('data_augmented')
+    
+if __name__ == '__main__':
+    get_data_with_cache('data_augmented')

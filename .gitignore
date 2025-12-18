@@ -2,6 +2,9 @@ data
 data_augmented
 venv
 models/features_cached.npz
+models/svm
+models/knn
+
 
 
 # Python garbage
