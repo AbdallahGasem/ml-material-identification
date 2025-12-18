@@ -15,8 +15,8 @@ from pathlib import Path
 
 
 # --- CONFIGURATION ---
-INPUT_DIR = Path('../data')
-OUTPUT_DIR = Path('../data_augmented')
+INPUT_DIR = Path(__file__).parent.parent / 'data'
+OUTPUT_DIR = Path(__file__).parent.parent / 'data_augmented'
 TARGET_COUNT = 500  # stated in the project that we need to make up upto 500 each! 
 
 # Define the classes (excluding 'Unknown' if you want, but usually we augment it too)

@@ -11,6 +11,7 @@ import cv2
 import numpy as np
 import joblib
 from features.extractor import extract_features
+from data_loader import load_resources
 
 # --- CONFIGURATION ---
 # Paths to your trained "brains"
@@ -18,32 +19,7 @@ MODEL_PATH = "models/svm/best_svm_model.joblib"
 SCALER_PATH = "models/svm/scaler.joblib"
 ENCODER_PATH = "models/svm/label_encoder.joblib"
 
-# Minimum confidence (0.60 = 60%) to show a label.
-# If lower, we will show "Analyzing..."
 CONFIDENCE_THRESHOLD = 0.40     # rejection rule??????
-
-def load_resources():
-    """
-    Loads the ML model, the scaler, and the label encoder.
-    Handles errors if files are missing.
-    """
-    print("Loading AI resources...")
-    try:
-        # TODO: Load the model using joblib
-        model = joblib.load(MODEL_PATH)
-        
-        # TODO: Load the scaler using joblib
-        scaler = joblib.load(SCALER_PATH)
-        
-        # TODO: Load the encoder using joblib
-        encoder = joblib.load(ENCODER_PATH)
-        
-        return model, scaler, encoder
-    except FileNotFoundError as e:
-        print(f"CRITICAL ERROR: {e}")
-        print("Run 'train_svm.py' first to generate these files.")
-        exit()
-
 
 
 def main():
@@ -51,7 +27,7 @@ def main():
     # STEP 1: INITIALIZATION
     # ---------------------------------------------------------
     # TODO: Call load_resources() to get your model/scaler/encoder.
-    model, scaler, encoder = load_resources()
+    model, scaler, encoder = load_resources(MODEL_PATH, SCALER_PATH, ENCODER_PATH)
     
     # TODO: Open the webcam using cv2.VideoCapture(0).
     stream = cv2.VideoCapture(0)
@@ -86,7 +62,7 @@ def main():
             break
         
         h, w, _ = frame.shape
-        box_size = 400
+        box_size = 200
         
         x1 = (w//2)-(box_size//2) 
         y1 = (h//2)-(box_size//2) 

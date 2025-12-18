@@ -4,7 +4,7 @@ venv
 models/features_cached.npz
 models/svm
 models/knn
-
+test_data
 
 
 # Python garbage
