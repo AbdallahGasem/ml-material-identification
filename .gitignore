@@ -5,6 +5,7 @@ models/features_cached.npz
 models/svm
 models/knn
 test_data
+sample_data
 
 
 # Python garbage

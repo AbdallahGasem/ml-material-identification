@@ -19,12 +19,12 @@ INPUT_DIR = Path(__file__).parent.parent / 'data'
 OUTPUT_DIR = Path(__file__).parent.parent / 'data_augmented'
 TARGET_COUNT = 500  # stated in the project that we need to make up upto 500 each! 
 
-# Define the classes (excluding 'Unknown' if you want, but usually we augment it too)
+# Define the classes
 CLASSES = ['glass', 'paper', 
            'cardboard', 'plastic', 
            'metal', 'trash']
 
-# --- AUGMENTATION FUNCTIONS (The "How") ---
+# --- AUGMENTATION FUNCTIONS ---
 # Rotaion, noise, brightness, fliping
 
 def augment_rotate(image):
@@ -62,7 +62,7 @@ def augment_flip(image):
     """Horizontal flip."""
     return cv2.flip(image, 1)
 
-# List of available augmentations
+# List of available augmentations to random them in the augment()
 aug_options = [augment_noise, augment_brightness, augment_flip, augment_rotate]
 
 # --- MAIN PIPELINE ---

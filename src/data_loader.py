@@ -9,7 +9,7 @@
 import numpy as np
 import os
 import cv2
-from .features.extractor import extract_features
+from features.extractor import extract_features
 import joblib
 
 
@@ -81,8 +81,9 @@ def load_dataset(data_path, model_in_action=False):
             return
 
         print(f'processing images in : {data_path}...')
-        
-        image_files = [file for file in os.listdir(data_path) if file.lower().endswith(('.png', '.jpg', '.jpeg'))]
+        all_files = sorted(os.listdir(data_path))
+        image_files = [file for file in all_files if file.lower().endswith(('.png', '.jpg', '.jpeg'))]
+        valid_file_names = []
         
         for image in image_files:
             image_path = os.path.join(data_path, image)
@@ -94,7 +95,8 @@ def load_dataset(data_path, model_in_action=False):
             
             features = extract_features(img)
             X.append(features)
-        return X
+            valid_file_names.append(image)
+        return X, valid_file_names
         
     CLASSES = os.listdir(data_path)
     for class_dir in CLASSES:
@@ -105,7 +107,6 @@ def load_dataset(data_path, model_in_action=False):
             continue
         
         print(f'processing class: {class_dir}...')
-        
         image_files = [file for file in os.listdir(class_path) if file.lower().endswith(('.png', '.jpg', '.jpeg'))]
         
         for image in image_files:

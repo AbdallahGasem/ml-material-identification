@@ -19,7 +19,7 @@ MODEL_PATH = "models/svm/best_svm_model.joblib"
 SCALER_PATH = "models/svm/scaler.joblib"
 ENCODER_PATH = "models/svm/label_encoder.joblib"
 
-CONFIDENCE_THRESHOLD = 0.40     # rejection rule??????
+CONFIDENCE_THRESHOLD = 0.60     # rejection rule??????
 
 
 def main():
@@ -85,7 +85,6 @@ def main():
             features_vector = features_vector.reshape(1,-1)
             
             # 3. SCALE: Transform features using the loaded scaler.
-            # CRITICAL: Do NOT fit the scaler here. Only .transform()!
             features_scaled = scaler.transform(features_vector)
             
             # 4. PREDICT: Get probabilities using model.predict_proba().

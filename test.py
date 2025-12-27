@@ -22,23 +22,25 @@ and paste it inside this function, then make sure it runs without errors.
 
 from src.data_loader import load_dataset, load_resources
 import numpy as np
+import os
+import pandas as pd
 
 
 #--- Configuration ---#
 MODEL_PATH = "models/svm/best_svm_model.joblib"
 SCALER_PATH = "models/svm/scaler.joblib"
 ENCODER_PATH = "models/svm/label_encoder.joblib"
-DATA_PATH = 'test_data'
+DATA_PATH = 'sample_data/sample'
 
-CONFIDENCE_THRESHOLD = 0.40 # 40%
+CONFIDENCE_THRESHOLD = 0.50 # 40%
 
 
 def run_test(dataFilePath, bestModelPath):
     #load data
-    X = load_dataset(data_path=DATA_PATH, model_in_action=True)
+    X, pos_names = load_dataset(data_path=dataFilePath, model_in_action=True)
     
     # load the model, scaler & encoder
-    model, scaler, _ = load_resources(bestModelPath, SCALER_PATH, ENCODER_PATH) # return the IDs
+    model, scaler, encoder = load_resources(bestModelPath, SCALER_PATH, ENCODER_PATH) # return the IDs
     
     # predict the data and return the array of predictions
     X_scaled = scaler.transform(X)
@@ -53,11 +55,19 @@ def run_test(dataFilePath, bestModelPath):
         confidence = prob_vector[best_class_id]
         
         if confidence < CONFIDENCE_THRESHOLD:
-            final_predictions.append(6) # Append 6
+            final_predictions.append("unknown") # Append 6: unkown
         else:
-            final_predictions.append(best_class_id)    # Append 0-5
+            class_name = encoder.inverse_transform([best_class_id])[0]
+            final_predictions.append(class_name)
             
     # Return the list of integers
+    df = pd.DataFrame({
+        'image_name': pos_names,
+        'classes': final_predictions
+    })
+    
+    df.to_excel('predictions.xlsx', index=False)
+    
     return final_predictions
 
 
